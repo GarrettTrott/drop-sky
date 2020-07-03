@@ -3,13 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {
-  getOpenWeather,
-  latitude,
-  longitude,
-  getUppers,
-  uppersAirport,
-} from './GetWeather'
+import { getWeather } from './GetWeather'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,6 +17,4 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister()
 
-getOpenWeather(latitude, longitude)
-
-getUppers(uppersAirport)
+console.log(getWeather(45.22, -122.59, 'PDX'))
