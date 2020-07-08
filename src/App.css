@@ -1,3 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .App {
+  font-family: 'Roboto', sans-serif;
   text-align: center;
+}
+
+.dropzoneTitle {
+  color: #0195cc;
+  font-size: 1.5rem;
+}
+
+.dateTime {
+  color: #999b9d;
+  font-size: 1.2rem;
+}
+
+.forecast,
+.windsAloft {
+  color: #999b9d;
+  background-color: #1f232a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
