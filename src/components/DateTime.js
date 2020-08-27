@@ -6,7 +6,6 @@ export const DateTime = (props) => {
 
   useEffect(() => {
     let timerID = setInterval(() => tick(), 1000)
-
     return function cleanup() {
       clearInterval(timerID)
     }

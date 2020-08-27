@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
+
 import axios from 'axios'
 import winds from '@faa-aviation-data-portal/winds-aloft'
+
 import { Header } from './components/Header'
 import { Map } from './components/Map'
 import { Row, Col, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import Forecast from './components/Forecast'
 
 const App = () => {
   const [dropzone, setDropzone] = useState('PNW Skydiving')
@@ -13,15 +16,18 @@ const App = () => {
   const [longitude, setLongitude] = useState('-122.59')
   const [uppersAirport, setUppersAirport] = useState('PDX')
   const [METERAirport, setMETERAirport] = useState('kuao')
-  const [METERWeather, setMETERWeather] = useState([])
-  const [localWeather, setLocalWether] = useState([])
+  const [METERWeather, setMETERWeather] = useState()
+  const [localWeather, setLocalWether] = useState()
   const [uppersWeather, setUppersWeather] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    setIsLoading(true)
     const fetchWeather = async () => {
+      // API key references
       const openWeatherKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY
       const checkWXKey = process.env.REACT_APP_CHECK_WX_API_KEY
+
       const localResult = await axios(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=imperial&appid=${openWeatherKey}`
       )
@@ -40,7 +46,6 @@ const App = () => {
             result[0].parsedProductText.data[uppersAirport]
           )
         })
-
       setMETERWeather(METERResult.data)
       setLocalWether(localResult.data)
       setIsLoading(false)
@@ -51,18 +56,18 @@ const App = () => {
     const interval = setInterval(() => {
       setIsLoading(true)
       fetchWeather()
-    }, 60000)
+    }, 86400)
 
     return () => clearInterval(interval)
   }, [])
 
   return (
     <div>
-      <Header dropzone={dropzone} />
+      <Header dropzone={dropzone} isLoading={isLoading} />
       <Container fluid>
         <Row>
           <Col className="forecast" sm={12} md={3}>
-            1 of 3
+            <Forecast localWeather={localWeather} />
           </Col>
           <Col className="map" sm={12} md={6}>
             <Map />

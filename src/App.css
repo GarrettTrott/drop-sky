@@ -17,6 +17,7 @@
 
 .forecast,
 .windsAloft {
+  text-align: center;
   color: #999b9d;
   background-color: #1f232a;
   display: flex;
